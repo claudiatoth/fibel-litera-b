@@ -16,12 +16,12 @@ const TOTAL_STEPS = 17;
 
 /* ---------- dictionar de cuvinte ---------- */
 const B = {
-  baer:   {de:'der Bär',    icon:'baer',   audio:'b-baer',   gen:'m', art:'der', ro:'ursul',    m:true},
-  blume:  {de:'die Blume',  icon:'blume',  audio:'b-blume',  gen:'f', art:'die', ro:'floarea',  m:true},
-  buch:   {de:'das Buch',   icon:'buch',   audio:'b-buch',   gen:'n', art:'das', ro:'cartea',   m:true},
-  ball:   {de:'der Ball',   icon:'ball',   audio:'b-ball',   gen:'m', art:'der', ro:'mingea',   m:true},
-  banane: {de:'die Banane', icon:'banane', audio:'b-banane', gen:'f', art:'die', ro:'banana',   m:true},
-  bett:   {de:'das Bett',   icon:'bett',   audio:'b-bett',   gen:'n', art:'das', ro:'patul',    m:true},
+  baer:   {de:'der Bär',    icon:'baer',   audio:'b-baer', audioArt:'b-art-baer',   gen:'m', art:'der', ro:'ursul',    m:true},
+  blume:  {de:'die Blume',  icon:'blume',  audio:'b-blume', audioArt:'b-art-blume',  gen:'f', art:'die', ro:'floarea',  m:true},
+  buch:   {de:'das Buch',   icon:'buch',   audio:'b-buch', audioArt:'b-art-buch',   gen:'n', art:'das', ro:'cartea',   m:true},
+  ball:   {de:'der Ball',   icon:'ball',   audio:'b-ball', audioArt:'b-art-ball',   gen:'m', art:'der', ro:'mingea',   m:true},
+  banane: {de:'die Banane', icon:'banane', audio:'b-banane', audioArt:'b-art-banane', gen:'f', art:'die', ro:'banana',   m:true},
+  bett:   {de:'das Bett',   icon:'bett',   audio:'b-bett', audioArt:'b-art-bett',   gen:'n', art:'das', ro:'patul',    m:true},
   maus:  {de:'die Maus',  icon:'m-maus',audio:'b-maus',  gen:'f', art:'die', ro:'șoricelul', m:false},
   mond:  {de:'der Mond',  icon:'m-mond',audio:'b-mond',  gen:'m', art:'der', ro:'luna',      m:false},
   katze: {de:'die Katze', icon:'katze', audio:'b-katze', gen:'f', art:'die', ro:'pisica',    m:false},
@@ -239,7 +239,7 @@ SCREENS[3] = function(){
     '<h1 class="title" style="font-size:1.5rem">Cuvinte cu B</h1>' +
     '<div class="cards">'+cards+'</div>' + nextBtn()
   );
-  stage.querySelectorAll('.card').forEach(el=>{ el.onclick = ()=>{ el.classList.add('tapped'); play(B[el.dataset.k].audio); }; });
+  stage.querySelectorAll('.card').forEach(el=>{ el.onclick = ()=>{ el.classList.add('tapped'); play(B[el.dataset.k].audioArt||B[el.dataset.k].audio); }; });
   wireNext(4);
 };
 
@@ -510,8 +510,9 @@ SCREENS[11] = function(){
       nextBtn()
     );
     const fc = document.getElementById('fc');
-    fc.onclick = ()=>{ fc.classList.toggle('flipped'); play(w.audio); };
-    play(w.audio);
+    const _wav = w.audioArt||w.audio;
+    fc.onclick = ()=>{ fc.classList.toggle('flipped'); play(_wav); };
+    play(_wav);
     const pv=document.getElementById('cprev'), nx=document.getElementById('cnext');
     pv.disabled = (i<=0); nx.disabled = (i>=WORDS_B.length-1);
     pv.onclick = ()=>{ if(i>0){ i--; card(); } };
